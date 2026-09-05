@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccfa92590711e8488c9dd51e68f4a1e, type: 3}
+  m_Name: Kar98
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: 0c025f48bf95e0c4b8bec9674c151c40, type: 2}
+  gunName: Kar98
+  previewIndex: 2
+  currencyType: 1
+  Price: 1
+  damage: 100
+  fireRate: 0.1
+  isAutomatic: 0
+  reloadTime: 3
+  stability: 80
+  range: 100
+  maxAmmo: 30
+  bulletSpeed: 100
+  singleShotClip: {fileID: 8300000, guid: b964e87f6da87c34a9c9b3cc27dac968, type: 3}
+  autoShotClip: {fileID: 8300000, guid: 2a8ca2f6ec2d04e469878c6eb3d72800, type: 3}
+  reloadclip: {fileID: 8300000, guid: 7e9876368f2e0364d8ce33e8ec59e8f1, type: 3}
+  recoilX: 3
+  recoilY: 0.7
+  upgradeLevels:
+  - damageBonus: 0
+    fireRateBonus: 0
+    recoilBonus: 0
+    magBonus: 0
+    reserveBonus: 0
+    reloadBonus: 0
+  - damageBonus: 0
+    fireRateBonus: 0
+    recoilBonus: 0
+    magBonus: 0
+    reserveBonus: 0
+    reloadBonus: 0
+  - damageBonus: 0
+    fireRateBonus: 0
+    recoilBonus: 0
+    magBonus: 0
+    reserveBonus: 0
+    reloadBonus: 0
+  - damageBonus: 0
+    fireRateBonus: 0
+    recoilBonus: 0
+    magBonus: 0
+    reserveBonus: 0
+    reloadBonus: 0

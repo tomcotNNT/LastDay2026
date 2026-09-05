@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85572fbd015b6eb468425e528950c193, type: 3}
+  m_Name: HunterData
+  m_EditorClassIdentifier: 
+  characterName: Jake
+  maxHealth: 100
+  hitSound: {fileID: 8300000, guid: dc6820a2c5a48cf4dacb31a16b734841, type: 3}
+  deathSound: {fileID: 8300000, guid: 05c7b3b461af2de4cad2dea0a94e6a54, type: 3}

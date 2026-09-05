@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c3d92a0fbedc847baea315e5655446, type: 3}
+  m_Name: Mutant
+  m_EditorClassIdentifier: 
+  mutantName: Skeleton_Mutant
+  maxHealth: 8000
+  damage: 50
+  jumpAttackDamage: 15
+  poisonAttackDamage: 10
+  walkSpeed: 2
+  runSpeed: 5
+  DieSound: {fileID: 8300000, guid: e9db47f641151c847b9d464546dbc696, type: 3}
+  WalkingSound: {fileID: 8300000, guid: e769d813afbacc54abef89665a2dea5f, type: 3}
+  RoarSound: {fileID: 8300000, guid: 795d87be3ab22ea408110c7c09b8520d, type: 3}
+  JumpAttackSound: {fileID: 8300000, guid: b53d7d304c9491940b90cb4b7fd342d9, type: 3}
+  MeleeAttackSound: {fileID: 8300000, guid: 325fd4835cc3ceb45b7183b31c5fedb8, type: 3}
+  PoisonAttackSound: {fileID: 8300000, guid: 28fb057f32851c1459cb18e97a4fbfd7, type: 3}
