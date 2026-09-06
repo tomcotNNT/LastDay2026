@@ -6,28 +6,28 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Start.unity
+    path: Assets/_Last Day/Scenes/Start.unity
     guid: 4f76b4f1fa2f2cd4f87e1d9db50bdfb8
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/_Last Day/Scenes/Lobby.unity
     guid: ff8f3ad13b8dfd6459ef5620f6a43a83
   - enabled: 1
-    path: Assets/Scenes/MapMenu.unity
+    path: Assets/_Last Day/Scenes/MapMenu.unity
     guid: 32f791c4b9ad96248a51c8758356e23b
   - enabled: 1
-    path: Assets/Scenes/Map1.unity
+    path: Assets/_Last Day/Scenes/Map1.unity
     guid: 337557b9c1bc9824ca3f35c72fea5c40
   - enabled: 1
-    path: Assets/Scenes/Upgrade.unity
+    path: Assets/_Last Day/Scenes/Upgrade.unity
     guid: 8ed337009b503694ca6c89fcbe1d2da6
   - enabled: 1
-    path: Assets/Scenes/Lucky.unity
+    path: Assets/_Last Day/Scenes/Lucky.unity
     guid: a9cd1c38d5783a14baaed966eed28e43
   - enabled: 1
-    path: Assets/Scenes/Admin.unity
+    path: Assets/_Last Day/Scenes/Admin.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Store.unity
+    path: Assets/_Last Day/Scenes/Store.unity
     guid: 5cbaf40193cef4a46a0432648c78241d
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}

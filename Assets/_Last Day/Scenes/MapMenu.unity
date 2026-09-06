@@ -344,9 +344,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1610366651}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1610366657}
+        m_TargetAssemblyTypeName: MapMenuController, NewAssembly
+        m_MethodName: LoadChapter1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1990,7 +1990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapters:
   - chapterName: 
-    sceneName: 
+    sceneName: Map1
     stars: []
   lobbySceneName: Lobby
 --- !u!1 &1612668187
@@ -2658,9 +2658,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1610366651}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1610366657}
+        m_TargetAssemblyTypeName: MapMenuController, NewAssembly
+        m_MethodName: BackToLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
