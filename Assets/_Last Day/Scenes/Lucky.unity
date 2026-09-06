@@ -267,7 +267,6 @@ GameObject:
   - component: {fileID: 10802699}
   - component: {fileID: 10802698}
   - component: {fileID: 10802700}
-  - component: {fileID: 10802701}
   - component: {fileID: 10802702}
   m_Layer: 5
   m_Name: Panel
@@ -360,9 +359,12 @@ MonoBehaviour:
   spinButton: {fileID: 138805870}
   spin5Button: {fileID: 1796940085}
   spin10Button: {fileID: 227792727}
+  backButton: {fileID: 36473780}
   rewardText: {fileID: 1009211267}
   rewards:
   - rewardName: Ticket
+    rewardType: 2
+    itemId: 
     icon: {fileID: 21300000, guid: 470e17d02ffacd44db1c3930d316b62f, type: 3}
     amount: 5
     weight: 2
@@ -371,6 +373,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 23950752}
   - rewardName: UpgradeShard
+    rewardType: 3
+    itemId: 
     icon: {fileID: 21300000, guid: ff5a1f20f41eedf4e9c0ac7ecac0714e, type: 3}
     amount: 30
     weight: 2
@@ -379,6 +383,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 2015898153}
   - rewardName: Mutant Crystal
+    rewardType: 6
+    itemId: 
     icon: {fileID: 21300000, guid: 3917ce17840f73a4084b2b86e8b022ec, type: 3}
     amount: 1
     weight: 1
@@ -387,6 +393,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 1520348515}
   - rewardName: Grenade
+    rewardType: 4
+    itemId: 
     icon: {fileID: 21300000, guid: d58bcb4166e98504f8e4082e17c7fc74, type: 3}
     amount: 5
     weight: 3
@@ -394,7 +402,9 @@ MonoBehaviour:
     iconSize: {x: 129, y: 114}
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 1363791960}
-  - rewardName: "Iu b\xE9"
+  - rewardName: Good Luck Again
+    rewardType: 0
+    itemId: 
     icon: {fileID: 21300000, guid: 338c1bf4abc92f248b279d2e26bd6357, type: 3}
     amount: 0
     weight: 12
@@ -403,6 +413,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 866927258}
   - rewardName: UpgradeShard
+    rewardType: 3
+    itemId: 
     icon: {fileID: 21300000, guid: ff5a1f20f41eedf4e9c0ac7ecac0714e, type: 3}
     amount: 15
     weight: 4
@@ -411,6 +423,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 2015898153}
   - rewardName: Protect Card
+    rewardType: 5
+    itemId: 
     icon: {fileID: 21300000, guid: a3811c0ece92cd44996b615caf4807ff, type: 3}
     amount: 2
     weight: 1
@@ -419,6 +433,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 1474163409}
   - rewardName: Money
+    rewardType: 1
+    itemId: 
     icon: {fileID: -1468681426, guid: f577c96a79ceef84db205398ed8aa4aa, type: 3}
     amount: 250
     weight: 4
@@ -427,6 +443,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 1079706759}
   - rewardName: Grenade
+    rewardType: 4
+    itemId: 
     icon: {fileID: 21300000, guid: d58bcb4166e98504f8e4082e17c7fc74, type: 3}
     amount: 3
     weight: 3
@@ -434,15 +452,20 @@ MonoBehaviour:
     iconSize: {x: 129, y: 114}
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 1363791960}
-  - rewardName: "Iu b\xE9"
-    icon: {fileID: 21300000, guid: 338c1bf4abc92f248b279d2e26bd6357, type: 3}
+  - rewardName: Kar98
+    rewardType: 7
+    itemId: gun_kar98
+    icon: {fileID: 21300000, guid: 4d1d3f97aeaf6e94e9e71efeb29341fc, type: 3}
     amount: 1
-    weight: 12
-    popupMessage: "Ti\u1EBFc qu\xE1 \xF2"
+    weight: 2000
+    popupMessage: "Nh\u1EADp Ch\xFAc m\u1EEBng! B\u1EA1n \u0111\xE3 nh\u1EADn \u0111\u01B0\u1EE3c
+      S\xFAng Kar98!"
     iconSize: {x: 166, y: 114}
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 866927258}
   - rewardName: UpgradeShard
+    rewardType: 3
+    itemId: 
     icon: {fileID: 21300000, guid: ff5a1f20f41eedf4e9c0ac7ecac0714e, type: 3}
     amount: 5
     weight: 8
@@ -451,6 +474,8 @@ MonoBehaviour:
     iconOffset: {x: 0, y: 0}
     rewardPopup: {fileID: 2015898153}
   - rewardName: Money
+    rewardType: 1
+    itemId: 
     icon: {fileID: -1468681426, guid: f577c96a79ceef84db205398ed8aa4aa, type: 3}
     amount: 100
     weight: 12
@@ -476,21 +501,6 @@ MonoBehaviour:
   ticketCost: 1
   audioSource: {fileID: 10802702}
   rewardSound: {fileID: 8300000, guid: 532a9504a4b5b8841827fc1293cd0747, type: 3}
---- !u!114 &10802701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 10802696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1866710895b1140a43c89090ccd075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapName: 
-  SettingPanel: {fileID: 0}
-  MenuPanel: {fileID: 0}
 --- !u!82 &10802702
 AudioSource:
   m_ObjectHideFlags: 0
@@ -919,16 +929,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 10802701}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: GoMenu
-        m_Mode: 1
+      - m_Target: {fileID: 1445218161}
+        m_TargetAssemblyTypeName: SceneLoader, NewAssembly
+        m_MethodName: LoadSceneByName
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Lobby
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &36473781
@@ -5478,6 +5488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1223464585}
   - component: {fileID: 1223464584}
+  - component: {fileID: 1223464586}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -5565,6 +5576,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1223464586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223464583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1226294027
 GameObject:
   m_ObjectHideFlags: 0
@@ -6341,6 +6375,7 @@ GameObject:
   - component: {fileID: 1445218159}
   - component: {fileID: 1445218158}
   - component: {fileID: 1445218157}
+  - component: {fileID: 1445218161}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6431,6 +6466,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1445218161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445218156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad1463f64bbe9e4bb07941ee762ad63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1474163409
 GameObject:
   m_ObjectHideFlags: 0
@@ -9005,16 +9052,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878396296}
-  m_LocalRotation: {x: 0, y: -0, z: 0.6678326, w: -0.7443116}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.065699436, y: -0.9942338, z: 0.008257465, w: 0.084348686}
+  m_LocalPosition: {x: 0, y: 0, z: 5.500025}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 183432540}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 276.2}
+  m_LocalEulerAnglesHint: {x: 1.576, y: 189.596, z: 352.571}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 128.8, y: -29.5}
+  m_AnchoredPosition: {x: 97.20009, y: -33.500046}
   m_SizeDelta: {x: 91.937, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1878396298
@@ -9037,7 +9084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 338c1bf4abc92f248b279d2e26bd6357, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d1d3f97aeaf6e94e9e71efeb29341fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
