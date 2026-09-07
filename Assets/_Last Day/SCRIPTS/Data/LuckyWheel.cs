@@ -16,7 +16,7 @@ public class LuckyWheel : MonoBehaviour
         Grenade,        // Lựu đạn
         ProtectCard,    // Thẻ bảo vệ
         MutantCrystal,  // Tinh thể
-        Equipment       // Súng, Vũ khí, Skin (Dạng vật phẩm sở hữu)
+        Equipment       // Súng, Trang bị sở hữu
     }
 
     [System.Serializable]
@@ -25,8 +25,8 @@ public class LuckyWheel : MonoBehaviour
         public string rewardName;
         public RewardType rewardType;
 
-        [Tooltip("Mã định danh vật phẩm để đồng bộ qua các Scene khác (Ví dụ: gun_rifle, gun_ak47)")]
-        public string itemId = ""; // Tái sử dụng cho hệ thống Kho đồ sau này
+        [Tooltip("Mã định danh vật phẩm để đồng bộ qua các Scene khác (Ví dụ: gun_kar98)")]
+        public string itemId = "";
 
         public Sprite icon;
         public int amount = 1;
@@ -38,7 +38,6 @@ public class LuckyWheel : MonoBehaviour
         public GameObject rewardPopup;
     }
 
-    // Sự kiện C# bắn ra toàn game khi người chơi trúng trang bị/vật phẩm sở hữu
     public static event Action<string, int> OnEquipmentUnlocked;
 
     [Header("Wheel UI")]
@@ -53,7 +52,8 @@ public class LuckyWheel : MonoBehaviour
     public RewardData[] rewards;
 
     [Header("Popup")]
-    public float popupAutoCloseTime = 1.5f;
+    [Tooltip("Thời gian popup nhận thưởng tự động đóng")]
+    public float popupAutoCloseTime = 3f;
 
     [Header("Spin Setting")]
     public float spinDuration = 4f;
@@ -64,8 +64,6 @@ public class LuckyWheel : MonoBehaviour
     public int spinRound = 5;
     public float pointerAngle = 0f;
     public float offsetAngle = 0f;
-
-    private bool isSpinning;
 
     [Header("Popup Close")]
     public GameObject currentPopup;
@@ -85,63 +83,65 @@ public class LuckyWheel : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip rewardSound;
 
+    // Biến trạng thái nội bộ
+    private bool isSpinning;
+    private Coroutine noticeCoroutine; // Đã bổ sung biến này để hết lỗi CS0103
+    private const string PENDING_REFUND_KEY = "Spin_Pending_Refund";
+
     void Start()
     {
-#if UNITY_EDITOR
-        if (PlayerPrefs.GetInt("Ticket", 0) < 10)
-        {
-            PlayerPrefs.SetInt("Ticket", 99);
-            PlayerPrefs.Save();
-        }
-#endif
+        // Kiểm tra và hoàn trả vé nếu phiên chơi trước bị tắt ngang khi đang quay
+        CheckAndRefundInterruptedSpin();
+
         UpdateUI();
+    }
+
+    void CheckAndRefundInterruptedSpin()
+    {
+        int pendingRefund = PlayerPrefs.GetInt(PENDING_REFUND_KEY, 0);
+        if (pendingRefund > 0)
+        {
+            int currentTicket = PlayerPrefs.GetInt("Ticket", 0);
+            PlayerPrefs.SetInt("Ticket", currentTicket + pendingRefund);
+            PlayerPrefs.DeleteKey(PENDING_REFUND_KEY);
+            PlayerPrefs.Save();
+
+            ShowNotice($"Đã hoàn lại {pendingRefund} vé do vòng quay trước bị gián đoạn!", Color.yellow);
+        }
     }
 
     public void UpdateUI()
     {
-        moneyText.text = PlayerPrefs.GetInt("Money", 0).ToString();
-        ticketText.text = PlayerPrefs.GetInt("Ticket", 0).ToString();
-        shardText.text = PlayerPrefs.GetInt("UpgradeShard", 0).ToString();
+        if (moneyText != null) moneyText.text = PlayerPrefs.GetInt("Money", 0).ToString();
+        if (ticketText != null) ticketText.text = PlayerPrefs.GetInt("Ticket", 0).ToString();
+        if (shardText != null) shardText.text = PlayerPrefs.GetInt("UpgradeShard", 0).ToString();
 
-        costText.text = ticketCost.ToString();
-
-        if (cost5Text != null)
-            cost5Text.text = "X" + (ticketCost * 5).ToString();
-
-        if (cost10Text != null)
-            cost10Text.text = "X" + (ticketCost * 10).ToString();
+        if (costText != null) costText.text = ticketCost.ToString();
+        if (cost5Text != null) cost5Text.text = "X" + (ticketCost * 5).ToString();
+        if (cost10Text != null) cost10Text.text = "X" + (ticketCost * 10).ToString();
     }
 
-    public void Spin()
-    {
-        StartCoroutine(MultiSpin(1, spinDuration));
-    }
-
-    public void SpinX5()
-    {
-        StartCoroutine(MultiSpin(5, x5SpinDuration));
-    }
-
-    public void SpinX10()
-    {
-        StartCoroutine(MultiSpin(10, x10SpinDuration));
-    }
+    public void Spin() => StartCoroutine(MultiSpin(1, spinDuration));
+    public void SpinX5() => StartCoroutine(MultiSpin(5, x5SpinDuration));
+    public void SpinX10() => StartCoroutine(MultiSpin(10, x10SpinDuration));
 
     IEnumerator MultiSpin(int spinCount, float duration)
     {
         if (isSpinning) yield break;
 
         int totalCost = ticketCost * spinCount;
-        int ticket = PlayerPrefs.GetInt("Ticket", 0);
+        int currentTickets = PlayerPrefs.GetInt("Ticket", 0);
 
-        if (ticket < totalCost)
+        // 1. Kiểm tra thiếu vé
+        if (currentTickets < totalCost)
         {
-            if (rewardText != null) rewardText.text = "Not enough tickets!";
+            ShowNotice("Không đủ vé quay!", Color.red);
             yield break;
         }
 
-        ticket -= totalCost;
-        PlayerPrefs.SetInt("Ticket", ticket);
+        // 2. KHÓA GIAO DỊCH BAN ĐẦU: Giữ chỗ đúng tổng số vé quay
+        PlayerPrefs.SetInt(PENDING_REFUND_KEY, totalCost);
+        PlayerPrefs.SetInt("Ticket", currentTickets - totalCost);
         PlayerPrefs.Save();
         UpdateUI();
 
@@ -151,9 +151,25 @@ public class LuckyWheel : MonoBehaviour
         for (int i = 0; i < spinCount; i++)
         {
             int rewardIndex = GetRandomRewardIndex();
-            bool autoClose = spinCount > 1;
+            bool autoClose = true;
 
+            // Chờ kim quay đến ô thưởng và phát quà
             yield return StartCoroutine(SpinToReward(rewardIndex, duration, autoClose));
+
+            // =========================================================================
+            // ĐIỂM CỐT LÕI (HƯỚNG 2): Đã nhận quà lượt này thành công 
+            // -> Trừ bớt 1 lượt vé ra khỏi danh sách hoàn tiền đề phòng crash ở lượt sau
+            // =========================================================================
+            int remainingRefund = PlayerPrefs.GetInt(PENDING_REFUND_KEY, 0) - ticketCost;
+            if (remainingRefund > 0)
+            {
+                PlayerPrefs.SetInt(PENDING_REFUND_KEY, remainingRefund);
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey(PENDING_REFUND_KEY); // Đã quay hết các lượt an toàn
+            }
+            PlayerPrefs.Save(); // Lưu mốc an toàn sau từng lượt
 
             if (i < spinCount - 1)
             {
@@ -161,6 +177,8 @@ public class LuckyWheel : MonoBehaviour
             }
         }
 
+        // Đảm bảo dọn dẹp sạch sẽ key hoàn vé khi kết thúc chuỗi
+        PlayerPrefs.DeleteKey(PENDING_REFUND_KEY);
         PlayerPrefs.Save();
         UpdateUI();
 
@@ -199,8 +217,6 @@ public class LuckyWheel : MonoBehaviour
 
     IEnumerator SpinToReward(int rewardIndex, float duration, bool autoClosePopup)
     {
-        if (rewardText != null) rewardText.text = "";
-
         float anglePerSlot = 360f / rewards.Length;
         float slotCenterAngle = rewardIndex * anglePerSlot;
         float targetRotation = pointerAngle - slotCenterAngle + offsetAngle;
@@ -213,9 +229,7 @@ public class LuckyWheel : MonoBehaviour
         {
             timer += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, timer / duration);
-            float z = Mathf.Lerp(startZ, endZ, t);
-
-            wheel.eulerAngles = new Vector3(0, 0, z);
+            wheel.eulerAngles = new Vector3(0, 0, Mathf.Lerp(startZ, endZ, t));
             yield return null;
         }
 
@@ -238,22 +252,16 @@ public class LuckyWheel : MonoBehaviour
     {
         if (reward.rewardType == RewardType.None) return;
 
-        // XỬ LÝ TRANG BỊ / SÚNG (Tái sử dụng cho hệ thống Kho đồ tương lai)
         if (reward.rewardType == RewardType.Equipment)
         {
             string id = string.IsNullOrEmpty(reward.itemId) ? "gun_default" : reward.itemId;
-
-            // Quy chuẩn lưu trữ: 1 = Đã sở hữu, cộng dồn số lượng nếu quay trúng nhiều lần
             PlayerPrefs.SetInt("EQUIP_UNLOCKED_" + id, 1);
             PlayerPrefs.SetInt("EQUIP_COUNT_" + id, PlayerPrefs.GetInt("EQUIP_COUNT_" + id, 0) + reward.amount);
             PlayerPrefs.SetString("LAST_ACQUIRED_EQUIP", id);
-
-            // Kích hoạt sự kiện cho toàn bộ game
             OnEquipmentUnlocked?.Invoke(id, reward.amount);
             return;
         }
 
-        // TÀI NGUYÊN THÔNG THƯỜNG
         string prefKey = reward.rewardType switch
         {
             RewardType.Money => "Money",
@@ -311,9 +319,49 @@ public class LuckyWheel : MonoBehaviour
         }
     }
 
+    void ShowNotice(string message, Color textColor)
+    {
+        if (rewardText != null)
+        {
+            rewardText.gameObject.SetActive(true);
+            rewardText.color = textColor;
+            rewardText.text = message;
+
+            if (noticeCoroutine != null) StopCoroutine(noticeCoroutine);
+            noticeCoroutine = StartCoroutine(HideNoticeRoutine(3f));
+        }
+    }
+
+    IEnumerator HideNoticeRoutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (rewardText != null)
+        {
+            rewardText.text = "";
+            rewardText.gameObject.SetActive(false);
+        }
+    }
+
     public void BackToLobby()
     {
         if (isSpinning) return;
         SceneManager.LoadScene("Lobby");
+    }
+
+    // Tiện ích Context Menu để test nhanh mà không làm hỏng dữ liệu
+    [ContextMenu("DEBUG: Đặt vé về 0")]
+    public void DebugSetZeroTickets()
+    {
+        PlayerPrefs.SetInt("Ticket", 0);
+        PlayerPrefs.Save();
+        UpdateUI();
+    }
+
+    [ContextMenu("DEBUG: Cấp 99 vé")]
+    public void DebugAddTickets()
+    {
+        PlayerPrefs.SetInt("Ticket", 99);
+        PlayerPrefs.Save();
+        UpdateUI();
     }
 }
