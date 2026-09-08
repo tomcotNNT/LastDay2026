@@ -1,58 +1,76 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 
 public class GunShopUI : MonoBehaviour
 {
-    public TMP_Text gunNameText;
-    public TMP_Text statsText;
-    public TMP_Text priceText;
-    public Image currencyIcon;
-    public Sprite moneySprite;
-    public Sprite crystalSprite;
-    public WeaponPreviewUI weaponPreviewUI;
-    private GunData currentGun;
+    [Header("--- HIỂN THỊ CHÍNH ---")]
+    public Image gunPreviewImage;   // Kéo Border Gun/RawImage vào đây
+    public TMP_Text gunNameText;     // Kéo Name vào đây
+    public TMP_Text statsText;       // Kéo Stats vào đây
+    public TMP_Text priceText;       // Kéo Price vào đây
 
-    public void SelectGun(GunData gun)
-    {   
-        currentGun = gun;
-        gunNameText.text = gun.gunName;
-        priceText.text = gun.Price.ToString();
-
-        statsText.text =
-            $"DAMAGE :    {gun.damage}\n" +
-            $"RECOIL :    {gun.recoilX}/{gun.recoilY}\n" +
-            $"MAG    :    {gun.maxAmmo}\n" +
-            $"RESERVE :   {gun.inventoryData.maxReserveAmmo}\n" +
-            $"RELOAD :    {gun.reloadTime}s";
-
-        ShowCost(gun);
-
-        weaponPreviewUI.ShowWeapon(gun.previewIndex);
-    }
-
-    void ShowCost(GunData gun)
+    // 1. Nhận dữ liệu từ WeaponData (cho 5 file mới trong WeaponsData)
+    public void SelectWeapon(WeaponData weapon)
     {
-        priceText.text = gun.Price.ToString();
+        if (weapon == null) return;
 
-        switch (gun.currencyType)
+        if (gunNameText != null) 
+            gunNameText.text = weapon.weaponName;
+
+        if (gunPreviewImage != null && weapon.weaponPreview != null)
         {
-            case CurrencyType.Money:
-                currencyIcon.sprite = moneySprite;
-                Debug.Log("money");
-                break;
-
-            case CurrencyType.Crystal:
-                currencyIcon.sprite = crystalSprite;
-                Debug.Log("crystal");
-                break;
+            gunPreviewImage.sprite = weapon.weaponPreview;
+            gunPreviewImage.preserveAspect = true;
+            gunPreviewImage.gameObject.SetActive(true);
         }
+
+        if (statsText != null)
+        {
+            statsText.text = 
+                $"DAMAGE :   {weapon.damage}\n" +
+                $"RECOIL :   {weapon.recoil}%\n" +
+                $"MAG    :   {weapon.magSize}\n" +
+                $"RESERVE:   {weapon.reserveAmmo}\n" +
+                $"RELOAD :   {weapon.reloadTime}s";
+        }
+
+        if (priceText != null)
+            priceText.text = weapon.price.ToString("N0") + " $";
     }
 
-    public void BuyCurrentGun()
+    // 2. Hàm cầu nối xử lý lỗi cho GunItemUI (khi truyền WeaponData)
+    public void SelectGun(WeaponData weapon)
     {
-        if (currentGun == null) return;
+        SelectWeapon(weapon);
+    }
 
-        ShopManager.Instance.BuyGun(currentGun);
+    // 3. Hàm cầu nối xử lý lỗi cho GunItemUI (nếu truyền GunData cũ)
+    public void SelectGun(GunData gun)
+    {
+        if (gun == null) return;
+
+        if (gunNameText != null) 
+            gunNameText.text = gun.gunName;
+
+        if (gunPreviewImage != null && gun.gunPreviewSprite != null)
+        {
+            gunPreviewImage.sprite = gun.gunPreviewSprite;
+            gunPreviewImage.preserveAspect = true;
+            gunPreviewImage.gameObject.SetActive(true);
+        }
+
+        if (statsText != null)
+        {
+            statsText.text = 
+                $"DAMAGE :   {gun.damage}\n" +
+                $"RECOIL :   {gun.recoilX}/{gun.recoilY}\n" +
+                $"MAG    :   {gun.maxAmmo}\n" +
+                $"RESERVE:   {gun.maxReserveAmmo}\n" +
+                $"RELOAD :   {gun.reloadTime}s";
+        }
+
+        if (priceText != null)
+            priceText.text = gun.Price.ToString("N0") + " $";
     }
 }

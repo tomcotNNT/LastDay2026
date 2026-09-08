@@ -1,50 +1,36 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewGun", menuName = "Gun/Gun Data")]
+[CreateAssetMenu(fileName = "NewGunData", menuName = "Shop/Gun Data")]
 public class GunData : ScriptableObject
-{   
-    [Header("Inventory Data")]
-    public InventoryData inventoryData; // Chứa dữ liệu kho đạn tham chiếu
+{
+    [Header("--- 1. THÔNG TIN SHOP (2D) ---")]
+    public string gunName = "TÊN SÚNG";
+    public Sprite gunPreviewSprite; // Kéo ảnh 2D to ở giữa vào đây
+    public Sprite gunIcon;          // Kéo ảnh icon nhỏ trên thẻ súng vào đây
+    public int Price = 1000;
+    public CurrencyType currencyType = CurrencyType.Money;
 
-    [Header("Info")]
-    public string gunName;
-    
-    [Header("Shop")]
-    public int previewIndex;
-    public CurrencyType currencyType;
-    public int Price;
-
-    [Header("Damage")]
-    public float damage = 20f;
-
-    [Header("Fire")]
-    public float fireRate = 0.1f;
-    public bool isAutomatic = true;
-
-    [Header("Reload")]
-    public float reloadTime = 2f;
-
-    [Header("Stability")]
-    [Range(0, 100)]
-    public float stability = 80f;
-    public float range = 100f;
-
-    [Header("Ammo")]
+    [Header("--- 2. CHỈ SỐ STATS TƯỢNG TRƯNG ---")]
+    public float damage = 35f;
+    public float recoilX = 1.2f;
+    public float recoilY = 1.8f;
     public int maxAmmo = 30;
-    public int maxReserveAmmo = 90; // <-- Đã bổ sung biến đạn dự trữ tại đây
+    public int maxReserveAmmo = 90;
+    public float reloadTime = 2.5f;
 
-    [Header("Bullet")]
+    [Header("--- 3. GIỮ CHỖ HỆ THỐNG GỐC (DÙNG ĐÚNG TYPE CỦA PROJECT) ---")]
+    public bool isAutomatic = true;
+    public float range = 100f;
     public float bulletSpeed = 100f;
-
-    [Header("Audio")]
+    public float fireRate = 0.1f;
     public AudioClip singleShotClip;
     public AudioClip autoShotClip;
     public AudioClip reloadclip;
+    public AudioClip reloadClip => reloadclip;
 
-    [Header("Recoil")]
-    public float recoilX = 1f;
-    public float recoilY = 1f;
+    // Sử dụng class gốc đã có sẵn trong dự án:
+    public InventoryData inventoryData;
+    public GunUpgradeLevel[] upgradeLevels;
 
-    [Header("Upgrade Per Level")]
-    public GunUpgradeLevel[] upgradeLevels = new GunUpgradeLevel[4];
+    [HideInInspector] public int previewIndex;
 }

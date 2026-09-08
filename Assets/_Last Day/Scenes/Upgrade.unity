@@ -567,7 +567,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea8cb15092f4204f85e0fa22fe4008a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testMoney: 50
+  applyOnStart: 1
+  weaponLevelKey: AK47_Level
+  reloadSceneOnReset: 1
+  testMoney: 10000
   testUpgradeShard: 50
   testProtectCard: 50
   testMutantCrystal: 20
@@ -1100,7 +1103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &268458937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1433,7 +1436,7 @@ GameObject:
   - component: {fileID: 377623780}
   - component: {fileID: 377623779}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: Amount_Shard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1780,7 +1783,7 @@ GameObject:
   - component: {fileID: 427986477}
   - component: {fileID: 427986478}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: Amount_Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2351,27 +2354,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 12.088425
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 12.088425
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12.088425
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.53488
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16.673
+      value: -24.695
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.3781
+      value: -4.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2507,7 +2510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 969629344769530832, guid: c9b27351135d2c24b9f7a7a6d0c85c6c, type: 3}
       propertyPath: m_Layer
@@ -6141,7 +6144,7 @@ GameObject:
   - component: {fileID: 980716446}
   - component: {fileID: 980716445}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: Amount_Protect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8097,6 +8100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090f6dac9525cae40acc123e5d4d02d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backButton: {fileID: 839081101}
+  upgradeButton: {fileID: 874894148}
+  insertShardButton: {fileID: 1367491253}
+  recoveryButton: {fileID: 1534218760}
+  nextGunButton: {fileID: 0}
+  prevGunButton: {fileID: 721331139}
+  protectButton: {fileID: 721331139}
+  mutantCrystalButton: {fileID: 1015637769}
   guns:
   - {fileID: 11400000, guid: 1940c4fa39da3f940acc20bc0f9c31b5, type: 2}
   - {fileID: 11400000, guid: f857e871cf2b4a14ea56bff4786364ac, type: 2}
@@ -8154,9 +8165,7 @@ MonoBehaviour:
   shakeDuration: 1
   shakeStrength: 10
   protectShieldPanel: {fileID: 459177297}
-  protectButton: {fileID: 721331139}
   protectCardText: {fileID: 980716445}
-  mutantCrystalButton: {fileID: 1015637769}
   mutantCrystalText: {fileID: 427986478}
   mutantCrystalPanel: {fileID: 1910762762}
 --- !u!4 &1263784964
@@ -8644,7 +8653,7 @@ GameObject:
   - component: {fileID: 1356646831}
   - component: {fileID: 1356646830}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: Amount_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10071,7 +10080,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: UPGRADE SUCCESS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 625513fd6abfb2747b83e95ba0e6a9e7, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 85c3e838eb2f02541876210d969a7ad9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -10137,7 +10146,7 @@ MonoBehaviour:
   m_margin: {x: -480.30566, y: -84.807236, z: -627.28156, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1576606730
@@ -10500,15 +10509,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632361348}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0007960246, y: -0.176743, z: -0.0044329013, w: 0.98424673}
-  m_LocalPosition: {x: 726.1583, y: 10.620279, z: -1581.2262}
+  m_LocalRotation: {x: 0.034090832, y: 0.1083073, z: 0.082870714, w: 0.99007064}
+  m_LocalPosition: {x: 726.1872, y: 10.587133, z: -1581.1154}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1345224706}
   - {fileID: 750974254}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 699.64, z: -0.516}
+  m_LocalEulerAnglesHint: {x: 2.84, y: 732.732, z: 9.886}
 --- !u!1 &1635078524
 GameObject:
   m_ObjectHideFlags: 0
@@ -10807,7 +10816,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644863800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10815,8 +10824,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -821, y: 447}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -657, y: 347}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1644863802
 CanvasRenderer:
@@ -10873,15 +10882,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 89
+  m_fontSize: 60
   m_fontSizeBase: 89
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 60
+  m_fontSizeMax: 100
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -12689,15 +12698,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd313bce50072624793c83192069f5b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd313bce50072624793c83192069f5b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.268
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd313bce50072624793c83192069f5b3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.718
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd313bce50072624793c83192069f5b3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12769,7 +12778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bd313bce50072624793c83192069f5b3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1136673818085108805, guid: bd313bce50072624793c83192069f5b3, type: 3}
       propertyPath: m_Layer
