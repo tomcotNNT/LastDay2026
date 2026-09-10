@@ -15,10 +15,10 @@ MonoBehaviour:
   weaponName: AWM
   weaponIcon: {fileID: 21300000, guid: 44af8304908577e4d95a36138bed9c30, type: 3}
   weaponPreview: {fileID: 21300000, guid: 44af8304908577e4d95a36138bed9c30, type: 3}
-  damage: 111
-  recoil: 111
-  magSize: 111
-  reserveAmmo: 0
-  reloadTime: 0
-  price: 0
+  damage: 130
+  recoil: 3.5
+  magSize: 5
+  reserveAmmo: 20
+  reloadTime: 4
+  price: 10000
   isUnlocked: 0

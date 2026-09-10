@@ -15,10 +15,10 @@ MonoBehaviour:
   weaponName: AK47
   weaponIcon: {fileID: 1101648366, guid: ef2e6e7e5be119741bea018e576f56e6, type: 3}
   weaponPreview: {fileID: 1101648366, guid: ef2e6e7e5be119741bea018e576f56e6, type: 3}
-  damage: 11
-  recoil: 11
-  magSize: 11
-  reserveAmmo: 1
-  reloadTime: 1
-  price: 111
+  damage: 20
+  recoil: 1.9
+  magSize: 30
+  reserveAmmo: 50
+  reloadTime: 3
+  price: 0
   isUnlocked: 0
