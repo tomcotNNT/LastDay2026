@@ -12,8 +12,13 @@ public class AmmoInventory : MonoBehaviour
     private int[] reserveAmmoByWeapon;
     private WeaponManager weaponManager;
 
+    [Header("Grenade Data")]
+    public int grenadeCount; // Số lượng lựu đạn lưu trữ trực tiếp trên RAM
+
     void Start()
     {
+        grenadeCount = PlayerPrefs.GetInt("Grenade", 3);
+        
         weaponManager = GetComponentInChildren<WeaponManager>();
 
         if (weaponManager == null)
@@ -30,6 +35,25 @@ public class AmmoInventory : MonoBehaviour
         }
     }
 
+    public bool HasGrenade()
+    {
+        return grenadeCount > 0;
+    }
+    public void UseGrenade()
+    {
+        if (grenadeCount > 0)
+        {
+            grenadeCount--;
+            // Cập nhật ngược lại PlayerPrefs để đồng bộ
+            PlayerPrefs.SetInt("Grenade", grenadeCount);
+        }
+    }
+// Hàm phục vụ tính năng nhặt đồ (Pickup) sau này
+    public void AddGrenade(int amount)
+    {
+        grenadeCount += amount;
+        PlayerPrefs.SetInt("Grenade", grenadeCount);
+    }
     public void AddAmmo(int weaponIndex, int amount)
     {
         if (!IsValidWeaponIndex(weaponIndex))

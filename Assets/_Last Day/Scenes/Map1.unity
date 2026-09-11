@@ -106350,6 +106350,7 @@ MonoBehaviour:
   - {fileID: 3035338970569914152}
   - {fileID: 7217073313051441477}
   grenadeSystem: {fileID: 1832424856}
+  ammoInventory: {fileID: 7034368501645783875}
   currentWeapon: 0
 --- !u!33 &4136730953178068532
 MeshFilter:
@@ -112962,6 +112963,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 1235e4cb410676c479e4f05e778afc5d, type: 3}
   audioSource: {fileID: 4604403972381276075}
   inventoryData: {fileID: 11400000, guid: 0c025f48bf95e0c4b8bec9674c151c40, type: 2}
+  grenadeCount: 117
 --- !u!4 &7056355133115438162
 Transform:
   m_ObjectHideFlags: 0
