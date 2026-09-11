@@ -19,8 +19,9 @@ public class GunSystem : MonoBehaviour
     public AudioSource gunAudio;
     public GunRecoil gunRecoil;
 
-    [Header("Bullet")]
-    public GameObject bulletPrefab;
+    // Loại bỏ biến dư thừa bulletPrefab (Tối ưu nạp bộ nhớ Scene):
+    //[Header("Bullet")]
+    //public GameObject bulletPrefab;
 
     [Header("Blood")]
     public ParticleSystem bloodPrefab;
@@ -79,21 +80,6 @@ public class GunSystem : MonoBehaviour
             if (obj != null)
                 reserveAmmoText = obj.GetComponent<TMP_Text>();
         }
-
-        if (reloadTimeText == null)
-        {
-            TMP_Text[] allTexts = Resources.FindObjectsOfTypeAll<TMP_Text>();
-
-            foreach (TMP_Text text in allTexts)
-            {
-                if (text.name == "ReloadTimeText")
-                {
-                    reloadTimeText = text;
-                    break;
-                }
-            }
-        }
-
         if (reloadTimeText != null)
             reloadTimeText.gameObject.SetActive(false);
 
@@ -125,6 +111,14 @@ public class GunSystem : MonoBehaviour
         input.Disable();
 
         CancelFire();
+
+        if (isReloading)
+        {
+            isReloading = false;
+
+            if (reloadTimeText != null)
+                reloadTimeText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -149,7 +143,6 @@ public class GunSystem : MonoBehaviour
             }
         }
 
-        UpdateAmmoUI();
     }
 
     void OnFirePressed(InputAction.CallbackContext ctx)
@@ -183,18 +176,24 @@ public class GunSystem : MonoBehaviour
         CancelFire();
     }
 
-    // --- TẠO BUG: Bỏ qua kiểm tra kho đạn dự trữ, cho phép nhấn R chạy nạp đạn vô điều kiện ---
     void OnReloadPressed(InputAction.CallbackContext ctx)
     {
-        if (Time.timeScale == 0f)
+        if (Time.timeScale == 0f || isReloading || gunData == null)
             return;
 
-        if (isReloading)
+        // Không nạp nếu băng đạn đã đầy
+        if (currentAmmo >= GetMaxAmmo())
             return;
 
-        // Chỉ cần đạn hiện tại ít hơn đạn tối đa là cho phép nạp, không quan tâm kho đạn dự trữ còn hay hết
-        if (currentAmmo < GetMaxAmmo())
-            StartCoroutine(Reload());
+        // Chặn không cho nạp nếu hết đạn dự trữ trong túi
+        int reserveAmmo = (inventory != null) ? inventory.GetAmmo(weaponIndex) : 0;
+        if (reserveAmmo <= 0)
+        {
+            Debug.Log("Hết đạn dự trữ, không thể nạp!");
+            return;
+        }
+
+        StartCoroutine(Reload());
     }
 
     void Shoot()
@@ -295,18 +294,16 @@ public class GunSystem : MonoBehaviour
         }
     }
 
-    // --- TẠO BUG: Sửa logic Coroutine để ép súng tự sinh đạn vô hạn khi kết thúc hoạt ảnh ---
     IEnumerator Reload()
     {
-        if (isReloading) yield break;
-        if (gunData == null) yield break;
+        if (isReloading || gunData == null) yield break;
 
         int maxAmmo = GetMaxAmmo();
+        int reserve = (inventory != null) ? inventory.GetAmmo(weaponIndex) : 0;
 
-        if (currentAmmo >= maxAmmo)
+        if (currentAmmo >= maxAmmo || reserve <= 0)
             yield break;
 
-        // Bỏ qua kiểm tra dòng lệnh inventory.GetAmmo <= 0 để hoạt ảnh và text chạy bất kể kho đạn trống
         isReloading = true;
         isFiring = false;
 
@@ -334,19 +331,15 @@ public class GunSystem : MonoBehaviour
             yield return null;
         }
 
-        // BIẾN ĐỔI GÂY BUG: Ép súng tự động hồi đầy băng đạn (refill) mà không cần trừ đạn từ kho dự trữ
+        // Logic nạp đạn chuẩn: Chỉ nạp tối đa số đạn còn lại trong kho dự trữ
         int needAmmo = maxAmmo - currentAmmo;
-        
-        // Tự gán đầy băng đạn luôn (Hành vi hack đạn ảo từ hư vô)
-        currentAmmo += needAmmo; 
+        int ammoToAdd = Mathf.Min(needAmmo, reserve);
 
-        // Nếu có inventory thì chỉ trừ theo logic toán học cũ nhưng không chặn dòng trên, 
-        // dẫn đến việc kho dự trữ bằng 0 vẫn nạp đầy súng thành công (Bug đạn vô hạn)
+        currentAmmo += ammoToAdd;
+
         if (inventory != null)
         {
-            int reserve = inventory.GetAmmo(weaponIndex);
-            int ammoToSubtract = Mathf.Min(needAmmo, reserve);
-            inventory.UseAmmo(weaponIndex, ammoToSubtract);
+            inventory.UseAmmo(weaponIndex, ammoToAdd);
         }
 
         if (reloadTimeText != null)
@@ -491,3 +484,25 @@ public class GunSystem : MonoBehaviour
         return GunUpgradeCalculator.GetReloadTime(gunData);
     }
 }
+
+/* Script GunSystem đóng vai trò là 
+khối điều khiển vũ khí đơn lẻ (Weapon Controller),
+ chịu trách nhiệm nhận lệnh bấm chuột/phím từ người chơi, 
+ bắn đạn tức thời bằng tia Raycast, 
+ trừ đạn, tính độ giật 
+ và đồng bộ toàn bộ phản hồi nghe – nhìn (âm thanh, hoạt ảnh, tia lửa, giao diện). */
+
+ // Bắn đạn tức thời (Hitscan Shooting):
+ // Phân biệt sát thương & Headshot:
+ // Chế độ bắn kép:
+ // Nạp đạn theo thời gian thực:
+ // Phản hồi nghe - nhìn & Hitmarker:
+
+ // Vị trí gắn: Gắn trực tiếp trên từng GameObject súng cụ thể
+
+ /* Nguồn Nhận Dữ Liệu
+GunData (ScriptableObject): Chứa thông số nguyên bản của súng (băng đạn gốc, tốc độ bắn, độ giật, tầm xa, âm thanh nạp đạn).
+GunUpgradeCalculator (Static Class): Nhận GunData và tính toán lại các chỉ số sau khi người chơi đã nâng cấp tại xưởng Store (sát thương thực tế, thời gian nạp nhanh hơn, băng đạn dài hơn).
+PlayerInputActions (New Input System): Đọc tín hiệu bấm chuột trái (Fire) và phím R (Reload).
+AmmoInventory: Cung cấp số lượng đạn dự trữ đang còn trong túi đồ của người chơi.
+ */

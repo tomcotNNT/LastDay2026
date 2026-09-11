@@ -12,10 +12,24 @@ public class WeaponManager : MonoBehaviour
     public int currentWeapon = -1;
 
     private PlayerInputActions input;
+    private GunSystem[] cachedGuns; // Mảng bộ đệm lưu sẵn các component súng
 
     void Awake()
     {
         input = new PlayerInputActions();
+
+        // Khởi tạo và lưu trữ toàn bộ GunSystem ngay từ đầu
+        if (weapons != null)
+        {
+            cachedGuns = new GunSystem[weapons.Length];
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (weapons[i] != null)
+                {
+                    cachedGuns[i] = weapons[i].GetComponentInChildren<GunSystem>(true);
+                }
+            }
+        }
     }
 
     void OnEnable()
@@ -55,7 +69,7 @@ public class WeaponManager : MonoBehaviour
 
         if (index == currentWeapon)
         {
-            GunSystem sameGun = weapons[index].GetComponentInChildren<GunSystem>(true);
+            GunSystem sameGun = GetCachedGun(index);
             if (sameGun != null)
             {
                 sameGun.SetWeaponIndex(index);
@@ -75,7 +89,8 @@ public class WeaponManager : MonoBehaviour
             bool isSelected = i == index;
             weapons[i].SetActive(isSelected);
 
-            GunSystem gun = weapons[i].GetComponentInChildren<GunSystem>(true);
+            // Truy xuất trực tiếp từ mảng đệm thay vì GetComponent
+            GunSystem gun = GetCachedGun(i);
 
             if (gun != null)
             {
@@ -84,8 +99,10 @@ public class WeaponManager : MonoBehaviour
                 if (!isSelected)
                     gun.CancelFire();
                 else
+                {
                     gun.SetUIActive(true);
                     gun.UpdateAmmoUI();
+                }
             }
         }
 
@@ -96,27 +113,28 @@ public class WeaponManager : MonoBehaviour
             grenadeSystem.SetEquip(false);
         }
     }
+
     private bool IsCurrentWeaponReloading()
     {
         if (currentWeapon < 0 || currentWeapon >= weapons.Length)
             return false;
 
-        GunSystem currentGun =
-            weapons[currentWeapon].GetComponentInChildren<GunSystem>(true);
-
+        GunSystem currentGun = GetCachedGun(currentWeapon);
         return currentGun != null && currentGun.IsReloading();
+    }
+
+    // Hàm phụ trợ truy xuất an toàn theo chỉ số index
+    private GunSystem GetCachedGun(int index)
+    {
+        if (cachedGuns != null && index >= 0 && index < cachedGuns.Length)
+            return cachedGuns[index];
+        return null;
     }
 
     void OnScrollWeapon(InputAction.CallbackContext ctx)
     {
         if (Time.timeScale == 0f)
             return;
-
-
-        if (grenadeSystem != null)
-        {
-            grenadeSystem.SetEquip(false);
-        }    
 
         Vector2 scroll = ctx.ReadValue<Vector2>();
 
@@ -163,13 +181,15 @@ public class WeaponManager : MonoBehaviour
     {
         if (Time.timeScale == 0) return;
 
-        int grenadeAmount =
-            PlayerPrefs.GetInt(
-                "Grenade",
-                0
-            );
+        if (IsCurrentWeaponReloading())
+        {
+            Debug.Log("Đang nạp đạn, không thể rút lựu đạn!");
+            return;
+        }
 
-        if(grenadeAmount <=0)
+        int grenadeAmount = PlayerPrefs.GetInt("Grenade", 0);
+
+        if (grenadeAmount <= 0)
             return;
 
         for (int i = 0; i < weapons.Length; i++)

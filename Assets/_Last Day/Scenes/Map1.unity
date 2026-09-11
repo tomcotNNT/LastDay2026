@@ -47369,7 +47369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1143444024
 RectTransform:
   m_ObjectHideFlags: 0
@@ -77360,6 +77360,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570316335}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1570810699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570810700}
+  m_Layer: 0
+  m_Name: BloodPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1570810700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570810699}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3814.629, y: 683.8676, z: 125.671036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1571938561
 GameObject:
   m_ObjectHideFlags: 0
@@ -104777,7 +104808,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 2139867856}
   gunAudio: {fileID: 3035338970569914154}
   gunRecoil: {fileID: 947134391058429111}
-  bulletPrefab: {fileID: 5824776450096212737, guid: e09d4f3ad85aec14c809c51aff14911f, type: 3}
   bloodPrefab: {fileID: 6901311055338445368, guid: 16c89707c8cda8e43a58cdbfe187761a, type: 3}
   muzzle: {fileID: 420546453}
   gunData: {fileID: 11400000, guid: f857e871cf2b4a14ea56bff4786364ac, type: 2}
@@ -106603,15 +106633,14 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1285941743}
   gunAudio: {fileID: 4325271311436796892}
   gunRecoil: {fileID: 947134391058429111}
-  bulletPrefab: {fileID: 5824776450096212737, guid: 01508d88d28021a489717448a4509efc, type: 3}
   bloodPrefab: {fileID: 6901311055338445368, guid: 16c89707c8cda8e43a58cdbfe187761a, type: 3}
   muzzle: {fileID: 700362032}
   gunData: {fileID: 11400000, guid: 1940c4fa39da3f940acc20bc0f9c31b5, type: 2}
   currentAmmo: 0
   reloadClip: {fileID: 7400000, guid: ea3736e92cd6d294f8aec5ba21a20ec1, type: 2}
-  ammoText: {fileID: 0}
-  reserveAmmoText: {fileID: 0}
-  reloadTimeText: {fileID: 0}
+  ammoText: {fileID: 251906930}
+  reserveAmmoText: {fileID: 1848668147}
+  reloadTimeText: {fileID: 1567818761}
   bulletUI: {fileID: 956448171}
   crosshairUI: {fileID: 1801027794}
   normalCrosshair: {fileID: 1801027794}
@@ -115275,3 +115304,4 @@ SceneRoots:
   - {fileID: 5422510342974737715}
   - {fileID: 4456968123571912707}
   - {fileID: 1195421315}
+  - {fileID: 1570810700}
