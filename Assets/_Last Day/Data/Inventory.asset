@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80665e40f070884680c2861e1e5cd12, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  maxReserveAmmo: 50
+  maxReserveAmmo: 49

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccfa92590711e8488c9dd51e68f4a1e, type: 3}
+  m_Name: M1014
+  m_EditorClassIdentifier: 
+  gunName: Ak47
+  gunPreviewSprite: {fileID: 0}
+  gunIcon: {fileID: 0}
+  Price: 1000
+  currencyType: 0
+  damage: 20
+  recoilX: 3
+  recoilY: 0.7
+  maxAmmo: 30
+  maxReserveAmmo: 50
+  reloadTime: 3
+  isAutomatic: 1
+  range: 100
+  bulletSpeed: 100
+  fireRate: 0.1
+  singleShotClip: {fileID: 8300000, guid: 2a8ca2f6ec2d04e469878c6eb3d72800, type: 3}
+  autoShotClip: {fileID: 8300000, guid: 2a8ca2f6ec2d04e469878c6eb3d72800, type: 3}
+  reloadclip: {fileID: 8300000, guid: 7e9876368f2e0364d8ce33e8ec59e8f1, type: 3}
+  inventoryData: {fileID: 11400000, guid: 0c025f48bf95e0c4b8bec9674c151c40, type: 2}
+  upgradeLevels:
+  - damageBonus: 0
+    fireRateBonus: 0
+    recoilBonus: 0
+    magBonus: 0
+    reserveBonus: 0
+    reloadBonus: 0
+  - damageBonus: 3
+    fireRateBonus: 0
+    recoilBonus: 0.2
+    magBonus: 5
+    reserveBonus: 25
+    reloadBonus: 0.2
+  - damageBonus: 6
+    fireRateBonus: 0
+    recoilBonus: 0.4
+    magBonus: 10
+    reserveBonus: 50
+    reloadBonus: 0.5
+  - damageBonus: 100
+    fireRateBonus: 0
+    recoilBonus: 1
+    magBonus: 15
+    reserveBonus: 100
+    reloadBonus: 0.8
+  previewIndex: 0
